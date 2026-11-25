@@ -22,11 +22,13 @@
 body{background-color:var(--bg);background-image:var(--camo),linear-gradient(160deg,var(--bg) 0%,var(--bg2) 100%);background-size:320px 320px,100% 100%;color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;min-height:100%}
 .eyebrow-mil{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.16em;color:var(--olive);margin-bottom:6px}
 .eyebrow-mil::before{content:"";width:22px;height:6px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--olive) 0 6px,var(--grad) 6px 9px,var(--enter) 9px 12px)}
-.wrap{max-width:1120px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:22px}
+.wrap{max-width:none;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:22px}
 header h1{font-family:var(--f-display);font-weight:700;font-size:clamp(1.6rem,4vw,2.2rem);margin:0;text-wrap:balance;letter-spacing:-.01em}
 header p{margin:4px 0 0;color:var(--muted)}
-.grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;align-items:start}
+.grid{display:grid;grid-template-columns:clamp(330px,30%,460px) minmax(0,1fr);gap:22px;align-items:start}
 @media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
+@media (min-width:861px){.wrap{padding-left:24px;padding-right:24px}}
+@media (min-width:861px) and (max-width:1300px){.wrap .enterRow{grid-template-columns:minmax(0,1fr)}}
 .panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 10px 28px -12px var(--shadow)}
 .side{display:grid;gap:16px}
 .dday{display:grid;gap:4px;position:relative}
@@ -34,7 +36,6 @@ header p{margin:4px 0 0;color:var(--muted)}
 .rpmini{font:inherit;font-size:11px;font-weight:600;color:var(--muted);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:2px 8px;line-height:1.5;cursor:pointer;width:auto}
 .rpmini:hover{color:var(--grad);border-color:var(--grad)}
 .rpadmin b{font-weight:800}.rpadmin.has{color:#fff;background:var(--grad);border-color:var(--grad)}
-#adminBox #arList{max-height:60vh;overflow:auto}
 .pinc{width:min(300px,100%)}
 #pinIn{font-size:18px;letter-spacing:.3em;text-align:center}
 .dday .eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted)}
@@ -132,6 +133,8 @@ body{min-height:100vh;background-attachment:scroll}
 .rpact{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .rpsend{background:var(--grad);color:#fff;border-color:var(--grad);font-weight:700}
 .rpsend:disabled{opacity:.6}
+.rpgo{display:block;text-align:center;font-weight:800;font-size:15px;color:#3a1d1d;background:#fee500;border-radius:10px;padding:12px;text-decoration:none}
+.rpmsg.ok{font-weight:700}
 .arhead{display:flex;align-items:baseline;gap:8px}.arhead small{font-size:11.5px;color:var(--muted)}
 #arList{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 #arList li{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--paper);display:grid;gap:4px}
@@ -631,7 +634,7 @@ body.wm-screen #printWm{display:grid}
   <div class="grid">
     <div class="side">
       <section class="panel dday" aria-live="polite">
-        <div class="rpminis"><button type="button" class="rpmini rpadmin" id="arBtn" hidden>받은 제보 <b id="arCount">0</b></button><button type="button" class="rpmini" data-open="reportBox">정보가 달라요</button></div>
+        <div class="rpminis"><button type="button" class="rpmini" data-open="reportBox">정보가 달라요</button></div>
         <div class="eyebrow" id="ddLabel">수료식까지</div>
         <div class="num" id="ddNum">D-0</div>
         <div class="sub" id="ddSub"></div>
@@ -824,22 +827,6 @@ body.wm-screen #printWm{display:grid}
             <button type="button" id="phoneClose">닫기</button>
           </div>
         </div>
-        <div class="regpick" id="pinBox" hidden role="dialog" aria-modal="true" aria-labelledby="pinTitle">
-          <div class="card jw pinc">
-            <h4 id="pinTitle">관리자 확인</h4>
-            <p class="wkrng">받은 제보를 보려면 관리자 번호를 입력해 주세요.</p>
-            <input type="password" id="pinIn" inputmode="numeric" autocomplete="off" maxlength="12" aria-label="관리자 번호">
-            <p class="rpmsg" id="pinMsg" aria-live="polite"></p>
-            <div class="rpact"><button type="button" id="pinClose">닫기</button><button type="button" id="pinOk" class="rpsend">확인</button></div>
-          </div>
-        </div>
-        <div class="regpick" id="adminBox" hidden role="dialog" aria-modal="true" aria-labelledby="arTitle">
-          <div class="card jw">
-            <div class="arhead"><h4 id="arTitle">받은 제보</h4><small>관리자만 볼 수 있어요</small></div>
-            <ul id="arList"></ul>
-            <button type="button" id="arClose">닫기</button>
-          </div>
-        </div>
         <div class="regpick" id="visitTerms" hidden role="dialog" aria-modal="true" aria-labelledby="vtTitle">
           <div class="card jw">
             <h4 id="vtTitle">면회 · 외출 확인사항</h4>
@@ -856,7 +843,7 @@ body.wm-screen #printWm{display:grid}
         <div class="regpick" id="reportBox" hidden role="dialog" aria-modal="true" aria-labelledby="reportTitle">
           <div class="card jw">
             <h4 id="reportTitle">정보가 달라요</h4>
-            <p class="wkrng">어느 정보가 어떻게 다른지 적어 주세요. 보낸 내용은 관리자만 볼 수 있어요.</p>
+            <p class="wkrng">어느 정보가 어떻게 다른지 적어 주세요. 제보하기를 누르면 내용이 복사돼요. 그다음 오픈채팅방에 들어가서 붙여넣기 해주세요.</p>
             <div class="rp2"><label class="rpl">입대일
               <input type="date" id="rpEnter"></label>
             <label class="rpl">보직
@@ -869,7 +856,8 @@ body.wm-screen #printWm{display:grid}
             <label class="rpl">어떻게 다른가요?
               <textarea id="rpText" rows="5" maxlength="2000" placeholder="예시1) 이번 기수 수료식은 화요일이 아니라 수요일이었어요&#10;예시2) 이번 기수부터 학교 면회외출이 가능해졌어요 (면회 날짜, 신청 방법, 면회 시간을 알려주세요)"></textarea></label>
             <p class="rpmsg" id="rpMsg" aria-live="polite"></p>
-            <div class="rpact"><button type="button" id="rpClose">닫기</button><button type="button" id="rpSend" class="rpsend">보내기</button></div>
+            <div class="rpact"><button type="button" id="rpClose">닫기</button><button type="button" id="rpSend" class="rpsend">제보하기</button></div>
+            <a id="rpGo" class="rpgo" href="#" target="_blank" rel="noopener" hidden>오픈채팅방 열기 ›</a>
           </div>
         </div>
         <div class="regpick" id="visitInfo" hidden role="dialog" aria-modal="true" aria-labelledby="visitTitle">
@@ -2163,63 +2151,35 @@ body.wm-screen #printWm{display:grid}
   $("wkClose").onclick=()=>{$("wkInfo").hidden=true};
   // 달력의 '면회외출' → 후반기 교육대 면회 정보 (보직별 내용이 있으면 그걸로)
   // ── 정보가 달라요: 제보는 reports/<본인 id> 문서에 쌓이고, 관리자(편집 권한)만 전체를 읽음 ──
-  let RDB=null,RUSER=null;
-  const capReady=(async()=>{try{if(!window.claude||!window.claude.use)return;const [db,u]=await Promise.all([window.claude.use("db"),window.claude.use("user")]);RDB=db;RUSER=u;
-      if(RDB&&RUSER&&await RUSER.canEdit())watchReports()}catch(e){}})();
+  // 오픈채팅 주소 (https://open.kakao.com/o/... ) — 비어 있으면 복사만 해요
+  const OPENCHAT_URL="https://open.kakao.com/me/gomsin";
   function openReport(){const m=$("reportBox");document.body.appendChild(m);
     // 입대일·보직: 지금 고른 값으로 채우고, 제보하는 사람이 바꿀 수 있게
     $("rpEnter").value=entered?(st.late&&st.lateDate?st.lateDate:st.enter):"";
-    $("rpJob").innerHTML=$("job").innerHTML;$("rpJob").value=st.job||NONE;if(!$("rpJob").value)$("rpJob").value=NONE;$("rpMsg").textContent="";$("rpMsg").className="rpmsg";$("rpSend").disabled=false;m.hidden=false;$("rpText").focus()}
-  $("rpClose").onclick=()=>{$("reportBox").hidden=true};
+    $("rpJob").innerHTML=$("job").innerHTML;$("rpJob").value=st.job||NONE;if(!$("rpJob").value)$("rpJob").value=NONE;$("rpMsg").textContent="";$("rpMsg").className="rpmsg";clearTimeout(window.__rpT);$("rpGo").hidden=true;m.hidden=false;$("rpText").focus()}
+  $("rpClose").onclick=()=>{clearTimeout(window.__rpT);$("reportBox").hidden=true};
   $("vtClose").onclick=()=>{$("visitTerms").hidden=true};
   $("visitTerms").addEventListener("click",ev=>{if(ev.target.id==="visitTerms")$("visitTerms").hidden=true});
   document.addEventListener("keydown",ev=>{if(ev.key==="Escape")$("visitTerms").hidden=true});
   $("reportBox").addEventListener("click",ev=>{if(ev.target.id==="reportBox")$("reportBox").hidden=true});
   document.addEventListener("keydown",ev=>{if(ev.key==="Escape")$("reportBox").hidden=true});
   const rpMsg=(t,bad)=>{$("rpMsg").textContent=t;$("rpMsg").className="rpmsg"+(bad?" bad":" ok")};
+  // 보내기: 제보 내용을 정리해서 복사하고 오픈채팅방을 열어요 (카카오는 자동 전송이 안 돼서 붙여넣기 필요)
   $("rpSend").onclick=async()=>{
     const text=$("rpText").value.trim();if(!text){rpMsg("어떻게 다른지 적어 주세요.",true);$("rpText").focus();return}
-    $("rpSend").disabled=true;rpMsg("보내는 중…");
-    try{await capReady;const uid=RUSER?await RUSER.id():null;
-      if(!RDB||!uid){rpMsg("지금은 보낼 수 없어요. Claude에 로그인한 상태에서 다시 시도해 주세요.",true);$("rpSend").disabled=false;return}
-      const ctx={enter:$("rpEnter").value||"",job:$("rpJob").value||"",after:st.after||""};
-      const ref=RDB.doc("reports/"+uid);const snap=await ref.get();
-      const items=((snap.exists&&snap.data().items)||[]).slice(-49);
-      items.push({at:Date.now(),where:$("rpWhere").value,text:text.slice(0,2000),ctx});
-      await ref.set({items,updatedAt:Date.now()});
-      $("rpText").value="";rpMsg("보냈어요! 알려줘서 고마워요.");
-    }catch(e){rpMsg(e&&e.code==="invalid_argument"?"이 링크에서는 보낼 권한이 없어요.":"보내지 못했어요. 잠시 후 다시 시도해 주세요.",true);$("rpSend").disabled=false}};
-  function watchReports(){const btn=$("arBtn");btn.hidden=false;const ul=$("arList");
-    // 받은 제보: 관리자 번호를 맞게 입력해야 열림 (번호는 해시로만 비교, 한 번 맞히면 이 화면에서는 다시 안 물어봄)
-    const PIN_HASH="56da18cd52bd5c644fa6d25b29a56477f04394aeae9c4333ee802772a83fcb47";let pinOk=false;
-    const showList=()=>{const m=$("adminBox");document.body.appendChild(m);m.hidden=false;$("arTitle").tabIndex=-1;$("arTitle").focus()};
-    const sha=async t=>{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")};
-    const tryPin=async()=>{let h="";try{h=await sha($("pinIn").value.trim())}catch(e){}
-      if(h===PIN_HASH){pinOk=true;$("pinBox").hidden=true;showList()}else{$("pinMsg").textContent="번호가 맞지 않아요.";$("pinMsg").className="rpmsg bad";$("pinIn").select()}};
-    btn.onclick=()=>{if(pinOk){showList();return}const m=$("pinBox");document.body.appendChild(m);$("pinIn").value="";$("pinMsg").textContent="";m.hidden=false;$("pinIn").focus()};
-    $("pinOk").onclick=tryPin;$("pinIn").addEventListener("keydown",ev=>{if(ev.key==="Enter"){ev.preventDefault();tryPin()}});
-    $("pinClose").onclick=()=>{$("pinBox").hidden=true};
-    $("pinBox").addEventListener("click",ev=>{if(ev.target.id==="pinBox")$("pinBox").hidden=true});
-    document.addEventListener("keydown",ev=>{if(ev.key==="Escape")$("pinBox").hidden=true});
-    $("arClose").onclick=()=>{$("adminBox").hidden=true};
-    $("adminBox").addEventListener("click",ev=>{if(ev.target.id==="adminBox")$("adminBox").hidden=true});
-    document.addEventListener("keydown",ev=>{if(ev.key==="Escape")$("adminBox").hidden=true});
-    const JOBLAB=v=>(v||"").split("|").pop();
-    RDB.collection("reports").onSnapshot(snap=>{
-      const all=[];snap.docs.forEach(dc=>{const dt=dc.data()||{};(dt.items||[]).forEach((it,i)=>all.push({uid:dc.id,i,...it}))});
-      all.sort((a,b)=>(b.at||0)-(a.at||0));ul.innerHTML="";$("arCount").textContent=all.length;btn.classList.toggle("has",all.length>0);
-      if(!all.length){const li=document.createElement("li");li.className="arnone";li.textContent="아직 받은 제보가 없어요.";ul.appendChild(li);return}
-      all.forEach(it=>{const li=document.createElement("li");
-        const h=document.createElement("div");h.className="arm";const w=document.createElement("b");w.textContent=String(it.where||"기타");
-        const t=document.createElement("small");const d=new Date(it.at||0);t.textContent=(d.getMonth()+1)+"/"+d.getDate()+" "+pad(d.getHours())+":"+pad(d.getMinutes());h.append(w,t);
-        const tx=document.createElement("p");tx.textContent=String(it.text||"");
-        const c=it.ctx||{};const cx=document.createElement("small");cx.className="arctx";
-        cx.textContent=[c.enter?"입대 "+c.enter:"",c.late?"지연입대 "+c.late:"",c.job&&c.job!=="미정"?"보직 "+JOBLAB(c.job):"",c.after&&c.after!=="미정"?"후반기 "+c.after:""].filter(Boolean).join(" · ");
-        const del=document.createElement("button");del.type="button";del.className="ardel";del.textContent="확인 완료 (지우기)";
-        del.onclick=async()=>{del.disabled=true;try{const ref=RDB.doc("reports/"+it.uid);const sn=await ref.get();const its=((sn.exists&&sn.data().items)||[]).filter(x=>!(x.at===it.at&&x.text===it.text));
-          if(its.length)await ref.set({items:its,updatedAt:Date.now()});else await ref.delete()}catch(e){del.disabled=false;del.textContent="지우지 못했어요"}};
-        li.append(h,tx);if(cx.textContent)li.appendChild(cx);li.appendChild(del);ul.appendChild(li)})},
-      ()=>{btn.hidden=true})}
+    const jl=($("rpJob").value||"").split("|").pop();
+    const msg=["[정보가 달라요]","입대일: "+($("rpEnter").value||"모름"),"보직: "+(jl&&jl!==NONE?jl:"미정"),(st.after&&st.after!=="미정"?"후반기: "+st.after:""),"부분: "+$("rpWhere").value,"내용: "+text].filter(Boolean).join("\n");
+    let copied=false;
+    try{await navigator.clipboard.writeText(msg);copied=true}catch(e){
+      try{const ta=document.createElement("textarea");ta.value=msg;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();copied=document.execCommand("copy");ta.remove()}catch(e2){}}
+    if(OPENCHAT_URL){
+      // 바로 이동하면 '복사됐어요'를 못 보니까, 먼저 안내하고 '오픈채팅방 열기' 버튼을 눌러서 이동
+      const g=$("rpGo");g.href=OPENCHAT_URL;
+      if(!copied){g.hidden=false;rpMsg("복사가 안 됐어요. 위 내용을 직접 복사한 뒤 아래 버튼으로 오픈채팅방에 보내 주세요.",true);return}   /* 복사 실패할 때만 버튼 */
+      // 복사 안내를 먼저 보여주고 2초 뒤 오픈채팅방으로 이동 (안 넘어가면 아래 버튼)
+      rpMsg("✓ 내용이 복사됐어요! 2초 뒤 오픈채팅방으로 이동해요. 붙여넣기 해주세요.");
+      clearTimeout(window.__rpT);window.__rpT=setTimeout(()=>{location.href=OPENCHAT_URL},2000);
+    }else rpMsg(copied?"내용을 복사했어요! (오픈채팅 주소는 아직 준비 중이에요)":"복사가 안 됐어요. 위 내용을 직접 복사해 주세요.",!copied)};
   function openVisit(v){const m=$("visitInfo");document.body.appendChild(m);
     const o0=AFTER_MAP[st.after]||{},nm=(st.job||"").split("|").pop(),o=o0.byJob&&o0.byJob[nm]?Object.assign({},o0,o0.byJob[nm]):o0;
     $("visitTitle").textContent="면회 · 외출 안내 ("+st.after+")";
