@@ -133,6 +133,10 @@ body{min-height:100vh;background-attachment:scroll}
 .vtl b{color:var(--grad)}.vtl em{font-style:normal;font-weight:700}
 .rpl{display:grid;gap:4px;font-size:12.5px;font-weight:600;color:var(--muted)}
 .rp2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:8px}
+.rp2>.rpl{min-width:0}
+.rp2 input[type=date]{-webkit-appearance:none;appearance:none;display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;height:44px;line-height:normal;text-align:left}
+.rp2 input[type=date]::-webkit-date-and-time-value{text-align:left}
+.rp2 select{height:44px;box-sizing:border-box}
 .rpl input,.rpl select{font-weight:400;font-size:14px}
 .rpl textarea{font:inherit;font-size:14px;font-weight:400;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;resize:vertical;min-height:96px}
 .rpmsg{margin:0;font-size:12.5px;min-height:1em}.rpmsg.ok{color:#2c4a7a}.rpmsg.bad{color:#d1242f}
