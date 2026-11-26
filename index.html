@@ -118,7 +118,13 @@ body{min-height:100vh;background-attachment:scroll}
 .phnote b{color:var(--ink);margin-right:6px;display:block;margin-bottom:2px}
 .phnote ul{margin:0;padding-left:16px;display:grid;gap:1px}
 .aisec li.gapline{margin-top:10px}
-.aisec li.kv{display:grid;grid-template-columns:7.2em 1fr;gap:4px 14px;word-break:keep-all;align-items:baseline;padding:0;line-height:1.45}
+/* 항목표: 항목 칸 폭은 그 칸에서 필요한 만큼만 (최대 5.6em, 넘치면 줄바꿈) */
+.aisec ul.kvl{grid-template-columns:fit-content(5.6em) minmax(0,1fr);gap:3px 10px;padding-left:2px;align-items:baseline}
+.aisec ul.kvl li.kv{display:contents}
+.aisec ul.kvl li:not(.kv){grid-column:1/-1}
+.aisec li.kv{word-break:keep-all;line-height:1.45}
+.aisec li.kv span{min-width:0}
+@media (max-width:560px){.aisec ul.kvl{font-size:13px;gap:3px 8px;letter-spacing:-.2px}}
 .aisec li.kv b{font-size:.92em;line-height:1.35}
 .aisec li.kv b{color:var(--ink)}
 .vtl{list-style:none;margin:0;padding:0;display:grid;border:1px solid var(--line);border-radius:10px;overflow:hidden}
@@ -1197,7 +1203,7 @@ body.wm-screen #printWm{display:grid}
       box.appendChild(p)}
     const sec=(title,lines,cls)=>{if(!lines||!lines.length)return;const s=document.createElement("div");s.className="aisec "+(cls||"");
       const b=document.createElement("div");b.className="aicap";b.textContent=title;s.appendChild(b);
-      const ul=document.createElement("ul");lines.forEach(x=>{const li=document.createElement("li");if(Array.isArray(x)){li.className="kv";const k=document.createElement("b");k.textContent=x[0];const v=document.createElement("span");v.textContent=x[1];li.append(k,v)}else li.textContent=x;ul.appendChild(li)});s.appendChild(ul);box.appendChild(s)};
+      const ul=document.createElement("ul");if(lines.some(Array.isArray))ul.className="kvl";lines.forEach(x=>{const li=document.createElement("li");if(Array.isArray(x)){li.className="kv";const k=document.createElement("b");k.textContent=x[0];const v=document.createElement("span");v.textContent=x[1];li.append(k,v)}else li.textContent=x;ul.appendChild(li)});s.appendChild(ul);box.appendChild(s)};
     // 모든 후반기 교육대가 같은 순서: 1 휴대폰 · 2 면회·외출 · 3 전속부대 나오는 날 · 4 편지·택배
     const NOINFO=["아직 정리된 정보가 없어요"];
     const dA=(()=>{try{return derived()}catch(e){return null}})();
