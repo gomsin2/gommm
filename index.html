@@ -114,6 +114,46 @@ body{min-height:100vh;background-attachment:scroll}
 .rpbtn span:first-child{display:grid;gap:2px}.rpbtn b{font-size:14px}.rpbtn small{font-size:12px;color:var(--muted)}
 .rpbtn:hover{border-color:var(--grad)}.rpbtn span:last-child{color:var(--muted)}
 .aicap .qinfo.vterm{margin-left:6px;color:#d1242f;border-color:#f3b4bb;background:#fdecee;font-weight:700;vertical-align:middle}
+/* 배경화면 이미지 (화면 밖에서 그려서 저장) */
+.wall{width:390px;height:844px;box-sizing:border-box;padding:0 26px 26px;display:flex;flex-direction:column;gap:14px;color:#2f2a35;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  background:radial-gradient(120% 60% at 0% 0%,#fde4ee 0%,rgba(253,228,238,0) 60%),radial-gradient(110% 55% at 100% 100%,#e9e2fb 0%,rgba(233,226,251,0) 60%),linear-gradient(180deg,#fff7fa 0%,#fbf5ff 100%)}
+.wall .wtop{height:250px;flex:none}
+.wall .whd{text-align:center;display:grid;gap:2px}
+.wall .wey{font-size:12px;letter-spacing:.18em;color:#9583c9;font-weight:700;margin-bottom:10px}
+.wall .wdd{font-family:"Gowun Batang","Nanum Myeongjo",serif;font-size:58px;line-height:1.05;font-weight:700;color:#d0688f}
+.wall .wsub{font-size:14px;font-weight:700;color:#2f2a35}
+.wall .wrng{font-size:11.5px;color:#7a7082;letter-spacing:.04em}
+.wall .wcal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;background:rgba(255,255,255,.72);border:1px solid #f1e3ec;border-radius:18px;padding:10px 10px 8px}
+.wall .wdow{font-size:10.5px;font-weight:700;color:#7a7082;text-align:center;padding-bottom:2px}
+.wall .wdow.sat,.wall .wn.sat{color:#7a8fd0}.wall .wdow.sun,.wall .wn.sun{color:#d0688f}
+.wall .wc{height:var(--rh);border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;position:relative}
+.wall .wc.off{opacity:.28}
+.wall .wc.trn{background:#fdf0f5}.wall .wc.aft{background:#f6efe3}
+.wall .wc.t{background:#f6c9da}.wall .wc.g{background:#d0688f}.wall .wc.g .wn{color:#fff}
+.wall .wc.today{border:2px solid #2f2a35;box-sizing:border-box}
+.wall .wmo{position:absolute;top:2px;left:5px;font-size:8px;font-weight:700;color:#9583c9;line-height:1}
+.wall .wn{font-size:12.5px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.wall .wdots{display:flex;gap:2px}
+.wall .wdot{width:5px;height:5px;border-radius:50%;display:block}
+.wall .wdot.letter,.wall .wsw.letter{background:#9583c9}.wall .wdot.qjob,.wall .wsw.qjob{background:#2f5f93}.wall .wdot.qunit,.wall .wsw.qunit{background:#2f9a8f}.wall .wdot.visit,.wall .wsw.visit{background:#bf6130}
+.wall .wsw.g{background:#d0688f}.wall .wsw.t{background:#f6c9da}
+.wall .wlg{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;font-size:10.5px;color:#7a7082;margin-top:-6px}
+.wall .wlg span{display:inline-flex;align-items:center;gap:4px}.wall .wsw{width:8px;height:8px;border-radius:50%;display:inline-block}
+.wall .wlist{display:grid;gap:5px;background:rgba(255,255,255,.72);border:1px solid #f1e3ec;border-radius:16px;padding:12px 14px}
+.wall .wli{display:flex;justify-content:space-between;font-size:13px}.wall .wli b{font-weight:700}.wall .wli span{color:#54487a}
+.wall .wli.past{opacity:.45}
+.wall .wft{margin-top:auto;text-align:center;font-size:9.5px;color:rgba(122,112,130,.55);letter-spacing:.04em}
+.calsavebox{margin-top:12px;border:1px solid var(--grad);background:var(--grad-soft);border-radius:10px;padding:10px;display:grid;gap:8px}
+.calsavet{font-size:13px;font-weight:800;color:var(--grad);text-align:center}
+.calsaveopt{display:flex;justify-content:center;gap:14px;font-size:13px;color:var(--ink)}
+.calsaveopt label{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.calsaveopt input{width:16px;height:16px;accent-color:var(--grad);margin:0}
+.calsavebtns{display:flex;gap:6px}
+.calsavebtns button{flex:1;font:inherit;font-size:13.5px;font-weight:700;color:var(--grad);background:var(--paper);border:1px solid var(--grad);border-radius:8px;padding:9px 4px;cursor:pointer}
+.calsavebtns button:disabled{opacity:.6}
+.calsave{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;color:var(--grad);background:var(--grad-soft);border:1px solid var(--grad);border-radius:10px;padding:10px;cursor:pointer}
+.calsave:disabled{opacity:.6}
+.calsavemsg{margin:6px 0 0;font-size:12px;color:var(--muted);text-align:center;min-height:1em}
 .phnote{margin-top:8px;font-size:12px;line-height:1.55;color:var(--muted);background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:7px 9px}
 .phnote b{color:var(--ink);margin-right:6px;display:block;margin-bottom:2px}
 .phnote ul{margin:0;padding-left:16px;display:grid;gap:1px}
@@ -1010,6 +1050,12 @@ body.wm-screen #printWm{display:grid}
           <span><i class="sw g-aft"></i>후반기</span>
           <span id="katcLegend"><i class="sw" style="background:var(--paper);border:1px solid var(--muted)"></i>훈련소 전체 일정 (월별 보기)</span>
         </div>
+        <div class="calsavebox" id="calSaveBox">
+          <div class="calsavet">휴대폰 배경화면으로 저장하기</div>
+          <div class="calsaveopt"><label><input type="checkbox" id="wOptDday" checked>D-day 표시</label><label><input type="checkbox" id="wOptToday" checked>오늘 날짜 표시</label></div>
+          <div class="calsavebtns"><button type="button" data-save="train">훈련소만</button><button type="button" data-save="aft">후반기만</button><button type="button" data-save="all">둘 다</button></div>
+        </div>
+        <p class="calsavemsg" id="calSaveMsg" aria-live="polite"></p>
       </section>
 
       <section class="panel">
@@ -1747,6 +1793,8 @@ body.wm-screen #printWm{display:grid}
     const tS=view&&+view===+mondayOf(d.e)?d.e:start, tE=view&&+view===+mondayOf(d.e)?(d.aft?d.aft.end:d.done):endV;
     // 훈련 기간 제목은 한 줄에 들어가게 짧게 (예: 2026.8.18 – 9.23), 월별과 같은 글자 크기
     $("mTitle").textContent=isMonth?mview.getFullYear()+"년 "+(mview.getMonth()+1)+"월":(tE.getFullYear()!==tS.getFullYear()?String(tS.getFullYear()).slice(2):tS.getFullYear())+"."+(tS.getMonth()+1)+"."+tS.getDate()+" – "+(tE.getFullYear()!==tS.getFullYear()?String(tE.getFullYear()).slice(2)+".":"")+(tE.getMonth()+1)+"."+tE.getDate();   // 해가 바뀌면 26.11.23 – 27.1.21
+    {const has=!!d.aft;document.querySelectorAll('#calSaveBox [data-save="aft"],#calSaveBox [data-save="all"]').forEach(b=>b.hidden=!has);
+     const t=document.querySelector('#calSaveBox [data-save="train"]');if(t)t.textContent=has?"훈련소만":"훈련소 달력 저장"}
     const cal=$("cal");cal.innerHTML="";
     [1,2,3,4,5,6,0].forEach(i=>{const h=document.createElement("div");h.className="dow"+(i===0?" sun":i===6?" sat":"");h.textContent=DOW[i];cal.appendChild(h)});
     const cells=rows*7;
@@ -1769,7 +1817,7 @@ body.wm-screen #printWm{display:grid}
           const r=document.querySelector('#weeks .week[data-i="'+wIdx+'"]');if(r)r.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})})}
       if(+dt===+d.e)cls+=" gday";
       if(d.gdates.some(x=>+x===+dt))cls+=" gday";
-      c.className=cls;
+      c.className=cls;c.dataset.d=iso(dt);
       const n=document.createElement("span");n.className="n";if(!isMonth&&(i===0||dt.getDate()===1)){const mo=document.createElement("span");mo.className="mo";mo.textContent=(dt.getMonth()+1)+"/";n.appendChild(mo)}n.appendChild(document.createTextNode(dt.getDate()));c.appendChild(n);
       if(hol){const hn=document.createElement("span");hn.className="holname";hn.textContent=hol;hn.title=hol;n.appendChild(hn)}
       const tag=(k,t)=>{const s=document.createElement("span");s.className="tag "+k;s.textContent=t;c.appendChild(s)};
@@ -2193,6 +2241,78 @@ body.wm-screen #printWm{display:grid}
       rpMsg("✓ 내용이 복사됐어요! 2초 뒤 오픈채팅방으로 이동해요. 붙여넣기 해주세요.");
       clearTimeout(window.__rpT);window.__rpT=setTimeout(()=>{location.href=OPENCHAT_URL},2000);
     }else rpMsg(copied?"내용을 복사했어요! (오픈채팅 주소는 아직 준비 중이에요)":"복사가 안 됐어요. 위 내용을 직접 복사해 주세요.",!copied)};
+  // 달력 이미지 저장: 지금 보이는 달력 칸을 그림(PNG)으로 만들어 저장 (html2canvas는 누를 때만 불러옴)
+  let h2cP=null;
+  const loadH2C=()=>h2cP||(h2cP=new Promise((ok,no)=>{if(window.html2canvas)return ok(window.html2canvas);const sc=document.createElement("script");
+    sc.src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";sc.onload=()=>ok(window.html2canvas);sc.onerror=()=>{h2cP=null;no(new Error("load"))};document.head.appendChild(sc)}));
+  // ── 휴대폰 배경화면 이미지 (390×844 → 3배 = 1170×2532) ──
+  // 위쪽 30%는 시계·위젯 자리로 비우고, 아래에 D-day · 미니 달력 · 주요 일정
+  function buildWallpaper(kind,opt){opt=opt||{};
+    const d=derived(),A=d.aft,aEnd=A?(A.viewEnd&&kind!=="train"?A.end:A.end):null;
+    const from=kind==="aft"&&A?d.done:d.e, to=kind==="train"||!A?d.done:aEnd;
+    const W=document.createElement("div");W.className="wall";
+    const el=(tag,cls,txt)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(txt!=null)x.textContent=txt;return x};
+    const f=x=>x.getFullYear()+"."+(x.getMonth()+1)+"."+x.getDate(), fs=x=>(x.getMonth()+1)+"."+x.getDate();
+    // 위: 시계 자리
+    W.appendChild(el("div","wtop"));
+    // 제목 · D-day
+    const head=el("div","whd");
+    const goal=kind==="aft"&&A?A.end:m0d(d), goalName=kind==="aft"&&A?"자대 이동":"수료식";
+    const L=diff(today,goal);
+    head.append(el("div","wey",kind==="aft"?"후반기 교육":kind==="all"?"훈련소 · 후반기":"육군훈련소"),
+      ...(opt.dday===false?[]:[el("div","wdd",L>0?"D-"+L:L===0?"D-DAY":"D+"+(-L))]),
+      el("div","wsub",goalName+" "+fmt(goal)),
+      el("div","wrng",f(from)+" – "+f(to)));
+    W.appendChild(head);
+    const items_n=(kind==="train"||!A?1:0)+(kind!=="aft"&&!d.short?2:0)+(kind!=="train"&&A?2+(aftVisit(d)?1:0)+(A.uq?1:0):1);
+    // 날짜별 표시
+    const mark={};const put=(x,k)=>{if(!x)return;const key=iso(x);(mark[key]=mark[key]||new Set()).add(k)};
+    put(d.e,"train");put(m0d(d),"grad");put(d.done,"train");
+    d.letters.forEach(l=>{put(l.dt,"letter");if(l.dt2&&!l.or){for(let x=add(l.dt,1);x<=l.dt2;x=add(x,1))put(x,"letter")}else if(l.dt2)put(l.dt2,"letter")});
+    if(!d.short)put(d.jq,"qjob");
+    if(A){if(A.uq)put(A.uq,"qunit");put(A.end,"move");const v=aftVisit(d);if(v){put(v.a,"visit");if(v.b)put(v.b,"visit")}}
+    // 미니 달력
+    const cal=el("div","wcal");
+    ["월","화","수","목","금","토","일"].forEach((t,i)=>cal.appendChild(el("div","wdow"+(i===5?" sat":i===6?" sun":""),t)));
+    const start=mondayOf(from),endW=add(mondayOf(to),6),rows=Math.round((diff(start,endW)+1)/7);
+    cal.style.setProperty("--rh",Math.max(28,Math.min(40,Math.floor(300/rows)))+"px");
+    W.querySelector(".wtop").style.height=Math.max(40,250-Math.max(0,rows-5)*50-Math.max(0,items_n-4)*24)+"px";   /* 주가 많으면 위 여백을 줄여서 한 화면에 */
+    for(let x=new Date(start);x<=endW;x=add(x,1)){
+      const c=el("div","wc");const inR=x>=from&&x<=to;if(!inR)c.classList.add("off");
+      if(A&&x>d.done&&x<=A.end&&inR)c.classList.add("aft");
+      if(x>=d.e&&x<=d.done&&inR)c.classList.add("trn");
+      const m=mark[iso(x)];if(m&&inR){if(m.has("grad"))c.classList.add("g");else if(m.has("train")||m.has("move"))c.classList.add("t")}
+      if(opt.today!==false&&+x===+today)c.classList.add("today");
+      if(x.getDate()===1||+x===+start)c.appendChild(el("span","wmo",(x.getMonth()+1)+"월"));const n=el("span","wn",String(x.getDate()));if(x.getDay()===0)n.classList.add("sun");if(x.getDay()===6)n.classList.add("sat");c.appendChild(n);
+      if(m&&inR){const dots=el("span","wdots");["letter","qjob","qunit","visit"].forEach(k=>{if(m.has(k))dots.appendChild(el("i","wdot "+k))});if(dots.childNodes.length)c.appendChild(dots)}
+      cal.appendChild(c)}
+    W.appendChild(cal);
+    const inRange=x=>x&&x>=from&&x<=to;
+    const lg=el("div","wlg");[["g","수료식"],["t","입영·이동"],["letter","편지 접수"]].concat(!d.short&&inRange(d.jq)?[["qjob","병과특기 조회"]]:[],A&&A.uq&&inRange(A.uq)?[["qunit","전속부대 조회"]]:[],A&&kind!=="train"&&aftVisit(d)?[["visit","면회외출"]]:[]).forEach(([k,t])=>{const s=el("span");s.append(el("i","wsw "+k),t);lg.appendChild(s)});
+    W.appendChild(lg);
+    // 주요 일정
+    const items=[];
+    if(kind==="train"||!A)items.push(["입영",d.e]);if(kind!=="aft"&&!d.short)items.push(["병과특기 조회",d.jq]);if(kind!=="aft")items.push(["수료식",m0d(d)]);
+    if(kind!=="train"&&A){items.push([afterName()?"후반기 이동":"이동",d.done]);const v=aftVisit(d);if(v)items.push(["면회외출",v.a]);if(A.uq)items.push(["전속부대 조회",A.uq]);items.push(["자대 이동",A.end])}
+    else items.push(["수료일 · 이동",d.done]);
+    const ul=el("div","wlist");items.sort((p,q)=>p[1]-q[1]).slice(0,6).forEach(([t,x])=>{const r=el("div","wli"+(x<today?" past":""));r.append(el("b",null,t),el("span",null,fs(x)+" ("+DOW[x.getDay()]+")"));ul.appendChild(r)});
+    W.appendChild(ul);
+    W.appendChild(el("div","wft","blog.naver.com/1011eden"));
+    return W}
+  // 저장할 범위: 훈련소만 / 후반기만 / 둘 다 (훈련 기간 보기 기준, 범위 밖 주는 이미지에서 빼요)
+  document.getElementById("calSaveBox").addEventListener("click",async ev=>{const bt=ev.target.closest("button[data-save]");if(!bt)return;
+    const kind=bt.dataset.save,msg=$("calSaveMsg"),btns=[...document.querySelectorAll("#calSaveBox button")];btns.forEach(x=>x.disabled=true);msg.textContent="이미지를 만드는 중…";
+    try{const h2c=await loadH2C();const d=derived();
+      const W=buildWallpaper(kind,{today:$("wOptToday").checked,dday:$("wOptDday").checked});W.style.position="fixed";W.style.left="-10000px";W.style.top="0";document.body.appendChild(W);
+      let canvas;try{canvas=await h2c(W,{backgroundColor:null,scale:3,width:390,height:844,useCORS:true})}finally{W.remove()}
+      const blob=await new Promise(r=>canvas.toBlob(r,"image/png"));
+      const name="훈련소달력_"+({train:"훈련소",aft:"후반기",all:"전체"})[kind]+"_"+(entered?st.enter:"")+".png";
+      let saved=false;
+      try{if(window.claude&&window.claude.use){const dl=await window.claude.use("downloads");if(dl){await dl.save({filename:name,data:blob});saved=true}}}catch(e){if(e&&e.code==="cancelled"){msg.textContent="저장을 취소했어요.";btns.forEach(x=>x.disabled=false);return}}
+      if(!saved){const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000)}
+      msg.textContent="저장했어요! 사진첩이나 다운로드 폴더를 확인해 주세요. (아이폰은 열린 이미지를 길게 눌러 '사진에 저장')";
+    }catch(e){msg.textContent="이미지를 만들지 못했어요. 잠시 후 다시 시도해 주세요."}
+    btns.forEach(x=>x.disabled=false)});
   function openVisit(v){const m=$("visitInfo");document.body.appendChild(m);
     const o0=AFTER_MAP[st.after]||{},nm=(st.job||"").split("|").pop(),o=o0.byJob&&o0.byJob[nm]?Object.assign({},o0,o0.byJob[nm]):o0;
     $("visitTitle").textContent="면회 · 외출 안내 ("+st.after+")";
