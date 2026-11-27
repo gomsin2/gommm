@@ -28,7 +28,7 @@ header p{margin:4px 0 0;color:var(--muted)}
 .grid{display:grid;grid-template-columns:clamp(330px,30%,460px) minmax(0,1fr);gap:22px;align-items:start}
 @media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
 @media (min-width:861px){.wrap{padding-left:24px;padding-right:24px}}
-@media (min-width:861px) and (max-width:1300px){.wrap .enterRow{grid-template-columns:minmax(0,1fr)}}
+
 .panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 10px 28px -12px var(--shadow)}
 .side{display:grid;gap:16px}
 .dday{display:grid;gap:4px;position:relative}
@@ -255,8 +255,15 @@ label{display:grid;gap:4px;font-size:13px;color:var(--muted);font-weight:500}
 input,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%;min-width:0}
 input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--olive);outline-offset:2px}
 .hint{font-size:12px;color:var(--muted);margin:0}
-.enterRow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:end}
+.enterRow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:end;container-type:inline-size}   /* 입영일 · 영주권자 · 지연입대 한 줄 */
+@container (max-width:380px){.chks{gap:4px}.chks .prchk{padding:8px 5px;font-size:12px;gap:3px;letter-spacing:-.4px}.chks .prchk input{width:13px;height:13px}.enterbtn{padding:8px 8px}}
 .chks{display:flex;gap:6px}
+.enterField{container-type:inline-size}
+@container (max-width:180px){.enterbtn::after{display:none}}
+.selsave{font:inherit;font-size:13px;font-weight:800;color:#fff;background:var(--grad);border:1px solid var(--grad);border-radius:8px;padding:8px 10px;white-space:nowrap;cursor:pointer}
+.selsave.saved{color:var(--grad);background:var(--grad-soft)}
+.flrow{display:flex;align-items:center;gap:8px}
+.selsave{padding:2px 10px;font-size:12px;border-radius:999px;line-height:1.5}
 .chks .prchk{padding:8px 8px;gap:4px;font-size:13px;white-space:nowrap}
 @media (max-width:420px){.chks .prchk{padding:8px 6px;font-size:12px;letter-spacing:-.3px}.chks .prchk input{width:14px;height:14px}}
 .enterField{display:grid;gap:4px;min-width:0}
@@ -632,6 +639,16 @@ button.tag.eunit.mine{background:var(--enter);color:var(--paper);border-color:va
 .rstcol p{font-size:10px!important;line-height:1.45!important}
 .rstwhen2{margin:14px 0 0;padding:6px 0 0;border-top:1px dashed #d9d9d9;font-size:12px;font-weight:700;color:var(--ink)}
 .mustnote .rstwhen2 b{display:inline;margin:0;padding:0;background:none;color:#d1242f;font-size:inherit}
+/* 조회 예시: 실제 육군 홈페이지 화면처럼 */
+.rstwin{border:1px solid #c9ccd1;border-radius:10px;overflow:hidden;box-shadow:0 6px 18px -10px rgba(0,0,0,.35);background:#fff;margin-top:6px}
+.rstbar{display:flex;align-items:center;gap:5px;background:#eef0f3;border-bottom:1px solid #d9dce1;padding:6px 8px}
+.rstbar i{width:8px;height:8px;border-radius:50%;background:#ff5f57;display:block}.rstbar i:nth-child(2){background:#febc2e}.rstbar i:nth-child(3){background:#28c840}
+.rstbar span{margin-left:6px;flex:1;min-width:0;font-size:9.5px;color:#666;background:#fff;border:1px solid #dcdfe4;border-radius:999px;padding:2px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rsthead{display:flex;align-items:baseline;gap:8px;background:#3e4a2c;color:#fff;padding:8px 10px}
+.rsthead b,.mustnote .rsthead b{display:inline;margin:0;padding:0;background:none;border-radius:0;font-size:11px;letter-spacing:.08em;color:#d8e0bf}.rsthead span{font-size:13px;font-weight:800}
+.rstbody{padding:8px}
+.musthow summary{font-size:12.5px!important;padding:4px 12px!important;color:#fff!important;background:#d1242f!important;box-shadow:0 2px 8px -3px rgba(209,36,47,.6)}
+.musthow[open] summary{background:#fff!important;color:#d1242f!important}
 .rstcase{display:inline-block;margin:10px 0 2px;font-size:11px;font-weight:700;color:#fff;background:#d1242f;border-radius:999px;padding:1px 9px}
 .rstcase:first-of-type{margin-top:0}
 .rstex p{padding-bottom:4px}
@@ -720,7 +737,7 @@ body.wm-screen #printWm{display:grid}
       <section class="panel">
         <form id="f" autocomplete="off">
           <div class="enterRow">
-            <div class="enterField"><span class="flbl" id="enterLbl">입영일</span>
+            <div class="enterField"><div class="flrow"><span class="flbl" id="enterLbl">입영일</span><button type="button" class="selsave" id="selSave">저장</button></div>
               <button type="button" id="enter" class="enterbtn" aria-haspopup="dialog" aria-expanded="false" aria-labelledby="enterLbl enter"></button>
             </div>
             <div class="chks"><label class="prchk" for="pr"><input id="pr" type="checkbox">영주권자</label>
@@ -1224,7 +1241,7 @@ body.wm-screen #printWm{display:grid}
       ["수송교육연대 (1·2·3 야수교)",{period:"수송운용 · 소형 X · 중형 4주 · 대형 5주",
         notes:["교육기간이 1주라고만 뜨는 것은 정상이에요","운전병 차종(특기)과 교육기간은 수송교육연대 입교 후 결정돼요"],
         phone:[["후반기 이동 당일","폰 안 줌 · 첫 주 주말부터 배부"],["평일","18:30 ~ 19:50"],["주말","08:30 ~ 19:50"],["식청","끝나는 대로 받음 (늦거나 못 받을 수 있음)"],["야간교육","그날은 폰 배부 없음"]],
-        visit:[["1·3 야수교","4주차 수요일 (중형·대형 같이)"],["2 야수교","4주차 수요일 (중형) · 5주차 수요일 (대형)"],["외출시간","10:30 ~ 18:30"],["복귀","30분 전에 복귀 장소 도착 권장"],["3야수교","09:00 ~ 09:30 사이 도착 (10시 이후 부대에서 외출)"],["직계가족","1야는 없이도 가능 · 2·3야는 외출·복귀 모두 동반 필수"],["면회","교육 기간 중 불가 (직계가족도 불가)"],["참고","면회외출 날은 수료식과 달라요"]]}]
+        visit:[["1·3 야수교","중형·대형 모두 4주차 수요일"],["2 야수교","중형 4주차 수요일 · 대형 5주차 수요일"],["외출시간","10:30 ~ 18:30"],["복귀","30분 전에 복귀 장소 도착 권장"],["3야수교","09:00 ~ 09:30 사이 도착 (10시 이후 부대에서 외출)"],["직계가족","1야는 없이도 가능 · 2·3야는 외출·복귀 모두 동반 필수"],["면회","교육 기간 중 불가 (직계가족도 불가)"],["참고","면회외출 날은 수료식과 달라요"]]}]
     ]],
     ["충북 남성대",[
       ["육군종합행정학교",{period:"군사경찰 2주 · MC군경 3주 · 특임대 3주 · 일반행정 2주",
@@ -1284,12 +1301,26 @@ body.wm-screen #printWm{display:grid}
     addr:[["정문","전라남도 장성군 삼서면 태청로 426"],["동문","전라남도 장성군 삼계면 화산신기길 9"]],
     navi:[["정문","상무마트"],["동문","티나가든"]],
     tel:"062-260-0114 (교환대) → 해당 소집부대 연결 요청"}};
+  // 면회·외출이 되는 후반기 교육대: 주소 안내 버튼 (주소가 아직 없으면 '준비 중')
+  const VISIT_ADDR=new Set(["육군포병학교","육군기계화학교","육군공병학교","육군화생방학교","육군종합군수학교","수송교육연대 (1·2·3 야수교)","육군종합행정학교"]);
+  const hasAddrBtn=n=>VISIT_ADDR.has(n);
   const AFTER_MAP={};AFTER_INFO.forEach(([loc,list])=>list.forEach(([n,o])=>{AFTER_MAP[n]=Object.assign({loc},o)}));
   function drawAfterInfo(hide){
     const box=$("afterInfo"),o0=AFTER_MAP[st.after];box.hidden=hide||!o0;if(box.hidden)return;
     let o=o0;{const jv=st.job||"",nm=jv.includes("|")?jv.split("|")[1]:"";if(o0.byJob&&o0.byJob[nm])o=Object.assign({},o0,o0.byJob[nm])}
     // '3야수교' 안내는 3수송교육연대를 골랐을 때만
-    if(o.visit)o=Object.assign({},o,{visit:o.visit.filter(r=>!(Array.isArray(r)&&r[0]==="3야수교"&&st.transNo!=="3"))});
+    // 수송교육연대: 고른 연대(1·2·3)의 정보만 (모름이면 전부)
+    if(o.visit&&/수송교육연대/.test(st.after||"")&&st.transNo){const tn=st.transNo,car=st.carType||"";
+      o=Object.assign({},o,{visit:o.visit.map(r=>{if(!Array.isArray(r))return r;const k=r[0];
+        if(k==="1·3 야수교")return tn==="2"?null:["면회외출 날짜",car==="중형"||car==="대형"?"4주차 수요일":r[1]];
+        if(k==="2 야수교")return tn==="2"?(car==="중형"?["면회외출 날짜","4주차 수요일"]:car==="대형"?["면회외출 날짜","5주차 수요일"]:[["중형 면회외출","4주차 수요일"],["대형 면회외출","5주차 수요일"]]):null;
+        if(k==="3야수교")return tn==="3"?["도착",r[1]]:null;
+        if(k==="직계가족")return ["직계가족",tn==="1"?"없이도 면회외출 가능":"외출·복귀 모두 동반 필수"];
+        return r}).filter(Boolean).flatMap(r=>Array.isArray(r)&&Array.isArray(r[0])?r:[r])})}
+    else if(o.visit){const car=st.carType||"";o=Object.assign({},o,{visit:o.visit.filter(r=>!(Array.isArray(r)&&r[0]==="3야수교")).map(r=>{
+      if(!Array.isArray(r)||!(car==="중형"||car==="대형"))return r;
+      if(r[0]==="1·3 야수교")return [r[0],"4주차 수요일"];
+      if(r[0]==="2 야수교")return [r[0],(car==="중형"?"4":"5")+"주차 수요일"];return r})})}
     box.textContent="";
     const h=document.createElement("div");h.className="aihead";const t=document.createElement("b");t.textContent=st.after;h.appendChild(t);
     if(o.loc&&o.loc!=="기타"){const l=document.createElement("span");l.className="ailoc";l.textContent=o.loc;h.appendChild(l)}
@@ -1325,7 +1356,7 @@ body.wm-screen #printWm{display:grid}
     sec("2. 면회 · 외출",vis.length?vis:NOINFO,"fixed");
     {const cap=box.lastElementChild&&box.lastElementChild.querySelector(".aicap");   // 제목 옆 '! 확인사항' → 면회·외출·외박 뜻 팝업
      if(cap){const q=document.createElement("button");q.type="button";q.className="qinfo vterm";q.dataset.open="visitTerms";q.textContent="! 확인사항";cap.appendChild(q);
-       if(LOC_ADDR[o.loc]){const a=document.createElement("button");a.type="button";a.className="qinfo addrbtn";a.textContent="주소 안내 ›";a.onclick=()=>openAddr(o.loc);cap.appendChild(a)}}}
+       if(hasAddrBtn(st.after)){const a=document.createElement("button");a.type="button";a.className="qinfo addrbtn";a.textContent="주소 안내 ›";a.onclick=()=>openAddr(o.loc);cap.appendChild(a)}}}
     sec("3. 전속부대 나오는 날",unitLines,"fixed");
     sec("4. 편지 · 택배",o.letter&&o.letter.length?o.letter:NOINFO,"fixed");
     // 모든 후반기 공통 5번: 수료식 · 이동 (수료식은 훈련병들끼리만, 카투사는 라이브 방송도 없음)
@@ -1357,10 +1388,19 @@ body.wm-screen #printWm{display:grid}
   document.body.classList.toggle("wm-screen",SCREEN_WATERMARK);
   // 지난번에 고른 입영일·보직 등을 그대로 보여줌 (입영일을 한 번이라도 고른 적이 있으면)
   // ※ 들어올 때마다 "미정"으로 되돌리려면 아래 RESET_EACH_VISIT를 true로
-  const RESET_EACH_VISIT=false;
-  let entered=!RESET_EACH_VISIT&&!!st.picked;
-  if(!entered)Object.assign(st,{job:"미정",jobCustom:"",after:"미정",afterCustom:"",carType:"",transNo:"",pr:false,example:false,late:false,lateDate:""});
-  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+  // ── [저장] 버튼을 눌러 저장한 선택만 다음에 열 때 그대로 보여줌 (같은 기기·같은 브라우저) ──
+  // 저장 안 하면 다음에 들어올 때 다시 선택. 접기·필터 같은 화면 설정은 따로 기억함
+  const SKEY="katc-cal-saved-v1";
+  const SEL=["enter","picked","job","jobCustom","after","afterCustom","carType","transNo","pr","late","lateDate","reg","co"];
+  const pickSel=o=>{const r={};SEL.forEach(k=>{if(o[k]!==undefined)r[k]=o[k]});return r};
+  let savedSel=null;try{savedSel=JSON.parse(localStorage.getItem(SKEY)||"null")}catch(e){}
+  Object.assign(st,{job:"미정",jobCustom:"",after:"미정",afterCustom:"",carType:"",transNo:"",pr:false,example:false,late:false,lateDate:"",picked:false,reg:undefined,co:undefined});
+  if(savedSel)Object.assign(st,savedSel);
+  let entered=!!st.picked;
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}try{updSaveBtn()}catch(e){}};
+  function updSaveBtn(){const b=document.getElementById("selSave");if(!b)return;
+    const same=savedSel&&JSON.stringify(pickSel(st))===JSON.stringify(pickSel(savedSel));
+    b.classList.toggle("saved",!!same);b.textContent=same?"저장됨 ✓":"저장";b.title=same?"지금 선택이 저장돼 있어요. 다시 누르면 저장을 지워요":"지금 선택을 이 기기에 저장해요"}
 
   let katcAll=false;   // 월별 보기에서 다른 기수 일정까지 보기
   let view=null, mode="train", mview=null, selWk=null, selDay=null;   // selWk: 달력에서 누른 날짜의 주차
@@ -1515,16 +1555,15 @@ body.wm-screen #printWm{display:grid}
   function closePick(){$("enterPick").hidden=true;$("enter").setAttribute("aria-expanded","false")}
   function pickEnter(k){entered=true;st.picked=true;st.enter=k;st.example=false;view=mondayOf(parse(k));mview=null;selWk=null;selDay=null;closePick();save();updEnterBtn();render();$("enter").focus()}
   // 입영일 칸: 한 줄에 다 들어가게 글씨를 줄임 (최소 10px, 그래도 안 되면 줄바꿈)
-  function fitEnter(){const el=$("enter");el.style.fontSize="";el.style.whiteSpace="nowrap";
-    if(!el.clientWidth)return;
-    let fs=parseFloat(getComputedStyle(el).fontSize);
-    while(el.scrollWidth>el.clientWidth+1&&fs>10){fs-=.5;el.style.fontSize=fs+"px"}
-    if(el.scrollWidth>el.clientWidth+1)el.style.whiteSpace=""}
+  function fitEnter(){const el=$("enter");el.style.whiteSpace="nowrap";if(!el.dataset.full||!el.clientWidth)return;
+    for(const k of ["full","short","tiny","bare"]){el.textContent=el.dataset[k];if(el.scrollWidth<=el.clientWidth+1)break}}   /* 글씨 크기 그대로, 좁으면 연도만 빼서 한 줄 */
   addEventListener("resize",()=>fitEnter());
   function updEnterBtn(){updEnterBtn0();fitEnter()}
-  function updEnterBtn0(){if(!entered){$("enter").textContent="선택";return}const dt=parse(st.enter);if(st.late&&st.lateDate){const a=parse(st.lateDate);$("enter").textContent=a.getFullYear()+"."+(a.getMonth()+1)+"."+a.getDate()+"("+DOW[a.getDay()]+") 지연입대";$("enter").title=(dt.getMonth()+1)+"/"+dt.getDate()+" 입영 기수와 같은 일정";return}
-    $("enter").title="";
-    $("enter").textContent=dt.getFullYear()+"."+(dt.getMonth()+1)+"."+dt.getDate()+"("+DOW[dt.getDay()]+") "+enterKind(st.enter)}
+  // 입영일 칸 글씨: 칸이 좁으면 연도를 빼서 한 줄에 (글씨 크기는 그대로)
+  function setEnterTxt(x,tail){const el=$("enter"),md=(x.getMonth()+1)+"."+x.getDate()+"("+DOW[x.getDay()]+") "+tail;
+    el.dataset.full=x.getFullYear()+"."+md;el.dataset.short=md;el.dataset.tiny=(x.getMonth()+1)+"."+x.getDate()+" "+tail;el.dataset.bare=(x.getMonth()+1)+"."+x.getDate()+"("+DOW[x.getDay()]+")";el.textContent=el.dataset.full}
+  function updEnterBtn0(){const el=$("enter");if(!entered){el.dataset.full=el.dataset.short="";el.textContent="선택";return}const dt=parse(st.enter);if(st.late&&st.lateDate){const a=parse(st.lateDate);setEnterTxt(a,"지연입대");el.title=(dt.getMonth()+1)+"/"+dt.getDate()+" 입영 기수와 같은 일정";return}
+    el.title="";setEnterTxt(dt,enterKind(st.enter))}
   $("enter").addEventListener("click",()=>{$("enterPick").hidden?openPick():closePick()});
   $("dpPrev").onclick=()=>{if(dpYM)dpY--;else dpm=new Date(dpm.getFullYear(),dpm.getMonth()-1,1);drawPick()};
   $("dpNext").onclick=()=>{if(dpYM)dpY++;else dpm=new Date(dpm.getFullYear(),dpm.getMonth()+1,1);drawPick()};
@@ -1636,7 +1675,7 @@ body.wm-screen #printWm{display:grid}
        if(du[2]){const en=document.createElement("div");en.className="aiper";en.textContent="입영 · "+du[2]+" (육군훈련소가 아니에요)";box.appendChild(en)}
        {const w=document.createElement("div");w.className="mustnote";const b=document.createElement("b");b.textContent="필수 안내";
         // 옆에 '확인 방법' 버튼: 누르면 수료식날 조회 링크
-        const how=document.createElement("details");how.className="musthow";const sm=document.createElement("summary");sm.textContent="확인 방법";
+        const how=document.createElement("details");how.className="musthow";const sm=document.createElement("summary");sm.textContent="🔍 조회 화면 예시 보기";
         const a2=document.createElement("a");a2.href="https://www.army.mil.kr/unitarng/searchRST.do";a2.target="_blank";a2.rel="noopener";a2.textContent="수료식날 링크 확인하기 ›";
         // 조회 결과 표 예시 (신병부대배치 결과 조회 화면을 간단히)
         const ex=document.createElement("div");ex.className="rstex";
@@ -1666,7 +1705,7 @@ body.wm-screen #printWm{display:grid}
           '<tr class="'+(o.after?'':'hl2')+'"><th>전속일자</th><td>'+o.udate+'</td></tr>'+
           '</tbody></table><p>'+o.desc+'</p></div>';
         const rst=o=>(o.capNote?'<div class="caprow">':'')+'<div class="rstcase'+(o.wait?' wait':'')+'">'+o.cap+'</div>'+(o.capNote?'<span class="capnote">'+o.capNote+'</span></div>':'')+
-          '<div class="rsttitle">신병부대배치 결과 조회</div>'+
+          '<div class="rstwin"><div class="rstbar"><i></i><i></i><i></i><span>www.army.mil.kr · 신병부대배치 결과 조회</span></div><div class="rsthead"><b>대한민국 육군</b><span>신병부대배치 결과 조회</span></div><div class="rstbody">'+
           '<table><colgroup><col style="width:17%"><col style="width:33%"><col style="width:17%"><col style="width:33%"></colgroup><tbody>'+
           '<tr><th>생년<br>월일</th><td colspan="3" class="blur"></td></tr>'+
           '<tr><th>성 명</th><td class="blur"></td>'+(o.wait?'<th class="chk1">병과<br>특기</th><td class="chk2">'+o.job+'<span class="chktip">이 부분을 확인해주세요</span></td>':'<th>병과<br>특기</th><td>'+o.job+'</td>')+'</tr>'+
@@ -1675,7 +1714,7 @@ body.wm-screen #printWm{display:grid}
           '<tr><th>신병<br>교육대<br>주소</th><td colspan="3">충남 논산시 연무읍 사서함 '+o.box+'호 육군훈련소 '+o.reg+'연대 O중대 O소대 훈련병 OOO 우) 33011 전화) '+o.tel+'<small>※ 편지발송시 반드시 중대/소대 소속을 확인하여 발송하시기 바라며, 중대/소대 소속은 해당부대의 카페(홈페이지)를 통하여 확인하시기 바랍니다.</small></td></tr>'+
           '<tr class="'+(o.wait?'hlw hlw1':'hl')+'"><th>후반기<br>교육<br>부대</th><td>'+o.after+'</td><th>후반기<br>교육<br>기간</th><td>'+o.aterm+'</td></tr>'+
           '<tr class="'+(o.wait?'hlw hlw2':o.after?'':'hl2')+'"><th>전속<br>부대</th><td>'+o.unit+'</td><th>전속<br>일자</th><td>'+o.udate+'</td></tr>'+
-          '</tbody></table><p>'+o.desc+'</p>';
+          '</tbody></table></div></div><p>'+o.desc+'</p>';
         const KAT=/카투사/.test(st.job||"")||/카투사/.test(st.after||"");   // 카투사: 후반기 교육대가 안 떠서 예시 2 대신 카투사 예시
         ex.innerHTML='<div class="rstcap">조회하면 이런 표가 나와요 <span>(실제 조회 예시)</span></div>'+
           '<div class="rstwhen"><b>병과특기 조회 가능일('+fmt(d.jq)+')</b>에는 후반기 교육부대와 전속부대가 <b>모두 빈칸</b>으로 나와요.<br><b>수료식날('+fmt(d.g)+')</b>이 되어야 아래 칸이 떠요.</div>'+
@@ -1685,8 +1724,8 @@ body.wm-screen #printWm{display:grid}
           '<div class="a2slot"></div>'+   // ‘수료식날 13시 30분’ 바로 아래·예시 2 위에 ‘수료식날 링크 확인하기’
           (KAT?rst({cap:"예시 2 · 3주간 KTA 교육",job:"미분류특기",...RG(r2),after:"",aterm:"~",unit:"미8군 한국군지원단",udate:iso(d.done),
             desc:'카투사는 <b>후반기 교육부대</b> 칸이 아예 안 떠요. <b>전속부대</b>는 <b>미8군 한국군지원단</b>으로 나오고, 정확한 자대는 <b>KTA 수료식날</b> 정해져요.'}):(
-          rst({cap:"예시 2 · 후반기 교육을 간 경우",job:ex1.job,...RG(r1),after:ex1.school,aterm:iso(d.done)+" ~ "+iso(aEnd),unit:"@@사단 / @@사령부 / @@군단",udate:iso(aEnd),
-            desc:'<b>후반기 교육부대</b> 칸에 학교 이름이 있으면 후반기 교육을 가요.'+(TRANS?'<br><b>수송운용은 후반기 교육기간이 1주만 떠요.</b> 중형 4주, 대형 5주라서 이동한 주 주말에 차종이 정해져요.':'')})+
+          rst({cap:"예시 2 · 후반기 교육을 간 경우",job:ex1.job,...RG(r1),after:ex1.school,aterm:iso(d.done)+" ~ "+iso(aEnd),unit:"",udate:"",
+            desc:'<b>후반기 교육부대</b> 칸에 학교 이름이 있으면 후반기 교육을 가요. 이때 <b>전속부대</b>는 아직 <b>빈칸</b>이고, 후반기 중에 따로 나와요.'+(TRANS?'<br><b>수송운용은 후반기 교육기간이 1주만 떠요.</b> 중형 4주, 대형 5주라서 이동한 주 주말에 차종이 정해져요.':'')})+
           (TRANS?'':rst({cap:"예시 3 · 후반기 없이 바로 자대로 간 경우",job:nm||"견인포병",...RG(r2),after:"",aterm:"~",unit:"@@사단 / @@사령부 / @@군단",udate:iso(d.done),
             desc:'<b>후반기 교육부대</b> 칸이 <b>비어 있으면</b> 후반기 없이 수료하고 바로 <b>전속부대(자대)</b>로 가요.'}))));
         const a2t=document.createElement("div");a2t.className="a2t";a2t.textContent="수료식날 "+(d.g.getMonth()+1)+"월 "+d.g.getDate()+"일 13시 30분에 조회했을 때";
@@ -2396,7 +2435,14 @@ body.wm-screen #printWm{display:grid}
       msg.textContent="저장했어요! 사진첩이나 다운로드 폴더를 확인해 주세요. (아이폰은 열린 이미지를 길게 눌러 '사진에 저장')";
     }catch(e){msg.textContent="이미지를 만들지 못했어요. 잠시 후 다시 시도해 주세요."}
     btns.forEach(x=>x.disabled=false)});
-  function openAddr(loc){const A=LOC_ADDR[loc];if(!A)return;const m=$("addrBox");document.body.appendChild(m);
+  // 수송교육연대는 1·2·3 위치가 달라서 연대별로 따로 (주소 받으면 여기 채우기)
+  const TRANS_ADDR={"1":null,"2":null,"3":null};
+  function openAddr(loc){const m=$("addrBox");document.body.appendChild(m);
+    let A=LOC_ADDR[loc];
+    if(/수송교육연대/.test(st.after||"")){A=st.transNo?TRANS_ADDR[st.transNo]:null;
+      if(!A){$("addrTitle").textContent="주소지 안내 ("+(st.transNo?st.transNo+"수송교육연대":"수송교육연대")+")";const ul=$("addrList");ul.innerHTML="";const li=document.createElement("li");const b=document.createElement("b");b.textContent="주소";const sp=document.createElement("span");
+        sp.textContent=st.transNo?"아직 정리된 주소 정보가 없어요. 곧 업데이트할게요!":"1·2·3 수송교육연대 위치가 모두 달라요. 위에서 수송교육연대(1·2·3)를 먼저 골라 주세요.";li.append(b,sp);ul.appendChild(li);m.hidden=false;$("addrClose").focus();return}}
+    if(!A){$("addrTitle").textContent="주소지 안내 ("+st.after+")";const ul=$("addrList");ul.innerHTML="";const li=document.createElement("li");const b=document.createElement("b");b.textContent="주소";const sp=document.createElement("span");sp.textContent="아직 정리된 주소 정보가 없어요. 곧 업데이트할게요!";li.append(b,sp);ul.appendChild(li);m.hidden=false;$("addrClose").focus();return}
     $("addrTitle").textContent="주소지 안내 ("+loc.replace(/^\S+\s+\S+\s+/,"")+")";
     const ul=$("addrList");ul.innerHTML="";
     const row=(k,lines)=>{const li=document.createElement("li");const b=document.createElement("b");b.textContent=k;const sp=document.createElement("span");
@@ -2407,7 +2453,15 @@ body.wm-screen #printWm{display:grid}
   $("addrBox").addEventListener("click",ev=>{if(ev.target.id==="addrBox")$("addrBox").hidden=true});
   document.addEventListener("keydown",ev=>{if(ev.key==="Escape")$("addrBox").hidden=true});
   $("visitAddr").onclick=()=>{const o0=AFTER_MAP[st.after];if(o0)openAddr(o0.loc)};
-  function openVisit(v){const m=$("visitInfo");document.body.appendChild(m);{const o0=AFTER_MAP[st.after];$("visitAddr").hidden=!(o0&&LOC_ADDR[o0.loc])}
+  // [저장] 누르면 지금 선택 저장, '저장됨' 상태에서 누르면 저장 지우기
+  document.getElementById("selSave").addEventListener("click",()=>{
+    const b=document.getElementById("selSave");
+    if(b.classList.contains("saved")){if(!confirm("저장한 선택을 지울까요? 다음에 들어오면 다시 선택해야 해요."))return;try{localStorage.removeItem(SKEY)}catch(e){}savedSel=null;updSaveBtn();return}
+    if(!entered){alert("입영일을 먼저 선택해 주세요.");return}
+    savedSel=pickSel(st);try{localStorage.setItem(SKEY,JSON.stringify(savedSel))}catch(e){alert("이 브라우저에서는 저장할 수 없어요.");savedSel=null}
+    updSaveBtn()});
+  setTimeout(updSaveBtn,0);
+  function openVisit(v){const m=$("visitInfo");document.body.appendChild(m);{const o0=AFTER_MAP[st.after];$("visitAddr").hidden=!(o0&&hasAddrBtn(st.after))}
     const o0=AFTER_MAP[st.after]||{},nm=(st.job||"").split("|").pop(),o=o0.byJob&&o0.byJob[nm]?Object.assign({},o0,o0.byJob[nm]):o0;
     $("visitTitle").textContent="면회 · 외출 안내 ("+st.after+")";
     const dd=x=>fmt(x);$("visitWhen").textContent=v.a2?"1주차 "+fmtS(v.a)+"~"+fmtS(v.b)+" 또는 2주차 "+fmtS(v.a2)+"~"+fmtS(v.b2)+" 주말 중 하루":v.b?dd(v.a)+" 또는 "+dd(v.b)+" 중 하나":dd(v.a);
