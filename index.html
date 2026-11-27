@@ -1634,7 +1634,7 @@ body.wm-screen #printWm{display:grid}
     else if(d.dis){const L=diff(today,d.dis);$("ddLabel").textContent="전역까지";$("ddNum").textContent=L>0?"D-"+L:L===0?"전역 D-DAY":"전역 D+"+(-L)}   // 수료하면 전역까지 D-day
     else{$("ddLabel").textContent=who+" 수료 후";$("ddNum").textContent="D+"+(-left)}
     const tot=diff(d.e,d.g), done=Math.min(tot,Math.max(0,diff(d.e,today)));
-    const pct=tot>0?Math.round(done/tot*100):0;
+    const pf=(a,z)=>{const t=diff(a,z);if(t<=0)return 100;const n=new Date(),fr=(n-new Date(n.getFullYear(),n.getMonth(),n.getDate()))/864e5;return Math.min(100,Math.max(0,(diff(a,today)+fr)/t*100))},f2=x=>(Math.floor(x*100)/100).toFixed(2),r2=x=>(100-Number(f2(x))).toFixed(2);const pct=tot>0?pf(d.e,d.g):0;
     const wkNow=diff(d.m0,today)>=0&&today<=d.done?Math.floor(diff(d.m0,today)/7):null;
     {const n=diff(d.ae,today)+1, el=$("ddDay");el.textContent="";   // 입영일 = 1일차
      if(n>=1){const b=document.createElement("b");b.textContent=n+"일차";el.append("입영 ",b," (입영일 1일차 기준)")}
@@ -1647,13 +1647,13 @@ body.wm-screen #printWm{display:grid}
     const dd=$("ddDis");dd.hidden=!d.dis;
     if(d.dis){const L=diff(today,d.dis);dd.textContent="";const b=document.createElement("b");b.textContent=L>0?"D-"+L:L===0?"오늘":"D+"+(-L);
       dd.append("전역 "+d.dis.getFullYear()+"년 "+fmt(d.dis)+" · ",b)}
-    $("ddSub").textContent=today<d.ae?"입영까지 "+diff(today,d.ae)+"일 남았어요":(today>d.done?(d.aft&&today<=d.aft.end?"후반기 교육 중 · 조금만 더 힘내요":"전속부대에서 근무 중 · 전역까지 함께해요"):(d.lab(wkNow)+(d.lab(wkNow).endsWith("주차")?" 훈련 중":""))+" · "+pct+"% 지나왔어요");
+    $("ddSub").textContent=today<d.ae?"입영까지 "+diff(today,d.ae)+"일 남았어요":(today>d.done?(d.aft&&today<=d.aft.end?"후반기 교육 중 · 조금만 더 힘내요":"전속부대에서 근무 중 · 전역까지 함께해요"):(d.lab(wkNow)+(d.lab(wkNow).endsWith("주차")?" 훈련 중":""))+" · "+f2(pct)+"% 지나왔어요");
     // 진행 바: 수료식 전 → 훈련소, 수료식 후 → 후반기(있으면), 그 다음 → 전역까지
-    {const per=(a,z)=>{const t=diff(a,z);return t>0?Math.min(100,Math.max(0,Math.round(diff(a,today)/t*100))):100};
-     let bp=pct,txt="수료식까지 "+pct+"% 지나왔어요 · "+(100-pct)+"% 남았어요",ph="train";
+    {const per=pf;
+     let bp=pct,txt="수료식까지 "+f2(pct)+"% 지나왔어요 · "+r2(pct)+"% 남았어요",ph="train";
      if(today>d.g){
-       if(d.aft&&today<=d.aft.end){bp=per(d.done,d.aft.end);ph="aft";txt="후반기 "+bp+"% 지나왔어요 · "+(100-bp)+"% 남았어요"}
-       else if(d.dis){bp=per(d.ae,d.dis);ph="dis";txt="전역까지 "+bp+"% 지나왔어요 · "+(100-bp)+"% 남았어요"}}
+       if(d.aft&&today<=d.aft.end){bp=per(d.done,d.aft.end);ph="aft";txt="후반기 "+f2(bp)+"% 지나왔어요 · "+r2(bp)+"% 남았어요"}
+       else if(d.dis){bp=per(d.ae,d.dis);ph="dis";txt="전역까지 "+f2(bp)+"% 지나왔어요 · "+r2(bp)+"% 남았어요"}}
      $("prog").style.width=bp+"%";$("prog").dataset.ph=ph;$("progTxt").textContent=txt}
     $("unitChips").innerHTML="";
     const jv=st.job||NONE;
